@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.dao.BuyerDao"> 
+	<select id="quertAllBuyer" resultType="products">
+	select * from products where p_status=1
+	</select>
+</mapper>
