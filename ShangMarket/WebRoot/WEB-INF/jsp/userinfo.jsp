@@ -1,4 +1,3 @@
-
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -11,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'home.jsp' starting page</title>
+    <title>My JSP 'userinfo.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,12 +22,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 
   </head>
-  
+  	
   <body>
-  <!-- 用户信息，参考商品信息，此处循环出来的是用户名，根据用户名id查询出该用户所有信息 -->
-   	<c:forEach items="${userList}" var="user">
-   		<p><a href="user/info.action?id=${user.u_id}"> ${user.u_username}</a></p>
-   	
-   	</c:forEach>
+  	<!--用户详细信息 啊啊 啊-->
+   		账户名：${userinfo.u_username}<br>
+   		昵称：${userinfo.u_nickname}<br>
+   		是否开店：${userinfo.u_hasstore}<br>
+   		身份：${userinfo.u_type}<br>
+   		头像：${userinfo.u_head_new}<br>
+   		审核状态：${userinfo.u_head_status}
+   		
+   		
+   		
   </body>
 </html>

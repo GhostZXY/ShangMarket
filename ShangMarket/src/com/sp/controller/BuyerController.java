@@ -9,27 +9,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sp.bean.Products;
-import com.sp.service.BuyerService;
+import com.sp.service.ProductsService;
+
 @Controller
-@RequestMapping("/buyer")
+@RequestMapping("/products")
 public class BuyerController {
-	@Resource(name="BuyerService")
-	BuyerService buyerService;
+	@Resource(name="products")
+	ProductsService productsService;
 	
-	@RequestMapping("/all")
-	public  String all(Model model){
-		List<Products> productsList =buyerService.findAllBuyer();
-		model.addAttribute("productsList",productsList);
-		return "buyerall";
+	//查询所有
+	@RequestMapping("/buyerhome")
+	public String buyerhome(Model model){
+		List<Products> productsList=productsService.queryProducts();
+		model.addAttribute("products",productsList);
+		return "buyerhome";
 	}
 	
-	
-	public BuyerService getBuyerService() {
-		return buyerService;
+	//此代码查询信息，根据客户端传入的id，进行查询相应的商品信息
+	@RequestMapping("/info")
+	public String info(Model model,int id){
+		model.addAttribute("productsinfo",productsService.queryById(id));
+		return "product";
 	}
-	public void setBuyerService(BuyerService buyerService) {
-		this.buyerService = buyerService;
-	}
 	
+
+	public ProductsService getProductsService() {
+		return productsService;
+	}
+
+	public void setProductsService(ProductsService productsService) {
+		this.productsService = productsService;
+	}
 	
 }

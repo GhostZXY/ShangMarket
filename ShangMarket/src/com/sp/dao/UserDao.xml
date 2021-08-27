@@ -4,4 +4,7 @@
 	<select id="quertAllUser" resultType="user">
 	select * from user
 	</select>
+	<select id="queryUserById" resultType="user" parameterType="Integer">
+	select * from user where u_id=${id}
+	</select>
 </mapper>

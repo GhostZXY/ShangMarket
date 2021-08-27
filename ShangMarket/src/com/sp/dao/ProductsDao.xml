@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sp.dao.ProductsDao">
+	<select id="queryAllProducts" resultType="products">
+		select * from products where p_status="1"
+	</select>
+	<select id="queryProductsById" resultType="products" parameterType="Integer">
+		select * from products where p_id=${id}
+	</select>
+</mapper>
