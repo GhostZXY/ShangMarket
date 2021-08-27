@@ -10,4 +10,7 @@ public interface UserService {
 
 	public User queryById(int id);
 	
+	public boolean addUser(User user);
+	
+	public boolean login(User user);
 }

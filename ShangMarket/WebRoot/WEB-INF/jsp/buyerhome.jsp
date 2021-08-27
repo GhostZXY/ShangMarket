@@ -24,6 +24,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<a href="products/toLogin.action">登录</a>
+  	<a href="products/toRegister.action">注册</a>
   	<!--此循环 中a标签中跳转到对应的点击结果。id=值。商品查询出来啊-->
     <c:forEach items="${products}" var="products">
     	<p><a href="products/info.action?id=${products.p_id}">${products.p_name}</a>  </p>

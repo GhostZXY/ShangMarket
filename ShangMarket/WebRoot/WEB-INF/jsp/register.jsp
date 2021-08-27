@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'userinfo.jsp' starting page</title>
+    <title>My JSP 'register.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -22,17 +21,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 
   </head>
-  	
+  <!-- 注册页 -->
   <body>
-  	<!--用户详细信息 啊啊 啊-->
-   		账户名：${userinfo.u_username}<br>
-   		昵称：${userinfo.u_nickname}<br>
-   		是否开店：${userinfo.u_hasstore}<br>
-   		身份：${userinfo.u_type}<br>
-   		头像：${userinfo.u_head_new}<br>
-   		审核状态：${userinfo.u_head_status}
-   		
-   		
+  	<form action="products/register.action" method="post">
+  		用户名：<input type="text" name="u_username" id="u_username" /><br>
+   		密码：<input type="password" name="u_password" id="u_password" /><br>
+   		<input type="submit" value="注册" />
+  	</form>
    		
   </body>
 </html>

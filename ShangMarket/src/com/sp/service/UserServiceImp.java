@@ -31,5 +31,30 @@ public class UserServiceImp implements UserService{
 		// TODO Auto-generated method stub
 		return userDao.queryUserById(id);
 	}
+	@Override
+	public boolean addUser(User user) {
+		//如果当前 名字为空，代表没注册过。可以注册 
+		if(userDao.queryByUsername(user.getU_username()) == null){
+			//判断影响的行数，为0返回false。不为0返回true
+			return userDao.addUser(user) != 0;
+		}
+		return false;
+	}
+	
+	//ajax技术u是后台的
+	@Override
+	public boolean login(User user) {
+		User us= userDao.queryByUsername(user.getU_username());
+		if(us != null){
+			if(us.getU_password().equals(user.getU_password())){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	
 	
 }
