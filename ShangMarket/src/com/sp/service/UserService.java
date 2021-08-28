@@ -13,4 +13,8 @@ public interface UserService {
 	public boolean addUser(User user);
 	
 	public boolean login(User user);
+	
+	public User findUserByusername(String username);
+	
+	
 }

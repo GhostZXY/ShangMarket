@@ -11,12 +11,12 @@
 	
 	<!-- 根据注册的名字，校验是否存在 -->
 	<select id="queryByUsername" resultType="user" parameterType="String">
-		select * from user where u_username = #{u_username}
+		select * from user where u_username = '${u_username}'
 	</select>
 	
 	<!-- 第一次注册是没有身份的 -->
 	<insert id="addUser" parameterType="user">
-		insert into user (u_username,u_password,u_type,u_hasstore) values (#{u_username},#{u_password},'1','0')
+		insert into user (u_username,u_password,u_type,u_hasstore) values ('#{u_username}','#{u_password}','1','0')
 	</insert>
 	
 	

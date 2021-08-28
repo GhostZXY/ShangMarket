@@ -1,8 +1,15 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	Cookie[] cookies = request.getCookies();
+	String loginName ="";
+	for(Cookie cookie:cookies){
+		if(cookie.getName().equals("LOGINNAME")){
+			loginName =cookie.getValue();		
+		}
+	}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -24,8 +31,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <%if(loginName.equals("")){ %>
   	<a href="products/toLogin.action">登录</a>
   	<a href="products/toRegister.action">注册</a>
+  	<%}else{ %>
+  	<p>您好，<a href="products/toModify.action?loginName=<%=loginName %>"><%=loginName %></a></p>
+  	<% }%>
   	<!--此循环 中a标签中跳转到对应的点击结果。id=值。商品查询出来啊-->
     <c:forEach items="${products}" var="products">
     	<p><a href="products/info.action?id=${products.p_id}">${products.p_name}</a>  </p>

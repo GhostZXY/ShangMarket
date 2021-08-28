@@ -53,6 +53,11 @@ public class UserServiceImp implements UserService{
 		
 		return false;
 	}
+	@Override
+	public User findUserByusername(String username) {
+		// TODO Auto-generated method stub
+		return userDao.queryByUsername(username);
+	}
 	
 	
 	

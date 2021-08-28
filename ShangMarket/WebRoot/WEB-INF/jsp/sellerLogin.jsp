@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'buyerLogin.jsp' starting page</title>
+    <title>My JSP 'sellerLogin.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -19,23 +19,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
 	<script type="text/javascript" src="js/jquery-3.0.0.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$("#login_btn").click(function(){
 				var username =$("#u_username").val();
 				var password =$("#u_password").val();
 				$.ajax({
-					url:"products/login.action",
+					url:"seller/login.action",
 					data:{
 						"u_username" :username,
 						"u_password" :password
 					},
 					success : function(result){
 						if(result=="success"){
-						
-							window.location.href="products/buyerhome.action"
-						/* 	alert("登录成功") */
+							var hasstore =$.cookie("HASSTORE")
+							if(hasstore=="true"){
+							window.location.href="seller/home.action"
+							}else{
+							window.location.href="seller/toAddStore.action"
+							}
 						}else{
 							$(".tip").html("登录失败")
 						}

@@ -3,6 +3,8 @@ package com.sp.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,15 +65,23 @@ public class BuyerController {
 	
 	@ResponseBody
 	@RequestMapping("/login")
-	public String login(User user){
-		
-		//ajax技术  注解@ResponseBody 代表当前方法返回的是值 字符
-		if(userService.login(user)){
+	public String login(User user,HttpServletResponse response){
+		if (userService.login(user)) {
+			Cookie cookie = new Cookie("LOGINNAME",user.getU_username());
+			response.addCookie(cookie);
 			return "success";
 		}
+		//ajax技术  注解@ResponseBody 代表当前方法返回的是值 字符
+		else{
 		return "failed";
+		}
 	}
 	
+	@RequestMapping("/toModify")
+	public String toModify(Model model,String loginName){
+		model.addAttribute("userInfo",userService.findUserByusername(loginName));
+		return "buyerModify";
+	}
 	
 	
 	
