@@ -1,20 +1,15 @@
 package com.sp.bean;
 
 public class Stores {
-	private int s_id;
+	private Integer s_id;
 	private String s_name;
 	private String s_address;
 	private String s_tel;
-	private int u_id;
+	private Integer u_id;
 	private String s_head_old;
 	private String s_head_new;
 	private String s_head_status;
-	public int getS_id() {
-		return s_id;
-	}
-	public void setS_id(int s_id) {
-		this.s_id = s_id;
-	}
+	
 	public String getS_name() {
 		return s_name;
 	}
@@ -33,10 +28,17 @@ public class Stores {
 	public void setS_tel(String s_tel) {
 		this.s_tel = s_tel;
 	}
-	public int getU_id() {
+	
+	public Integer getS_id() {
+		return s_id;
+	}
+	public void setS_id(Integer s_id) {
+		this.s_id = s_id;
+	}
+	public Integer getU_id() {
 		return u_id;
 	}
-	public void setU_id(int u_id) {
+	public void setU_id(Integer u_id) {
 		this.u_id = u_id;
 	}
 	public String getS_head_old() {

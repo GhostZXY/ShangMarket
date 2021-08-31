@@ -23,11 +23,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<form action="" method="post">
-    <input type="text" id="u_username" name="u_username" value="${userInfo.u_username}" /><br>
-    <input type="password" id="u_password" name="u_password" value="${userInfo.u_password}"/><br>
-  	<input type="text" id="u_nickname" name="u_nickname" value="${userInfo.u_nickname}"/><br>
-  	<input type="submit" value="修改" /><br>
-  	</form>
+    <form action="products/modify.action" method="post" enctype="multipart/form-data">
+    	用户名：<input type="hidden" name="u_username" id="u_username" value="${userInfo.u_username}"/><br>
+    	密码：<input type="password" name="u_password" id="u_password" value="${userInfo.u_password}"><br>
+    	昵称：<input type="text" name="u_nickname" id="u_nickname" value="${userInfo.u_nickname}"><br>
+    	<input type="file" id="u_head" name="u_head" /><br>
+    	<img src="${userInfo.u_head_old}">
+    	<a href="products/tosite.action?username=${userInfo.u_username}">地址管理</a>
+    	<input type="submit" value="修改" name="修改">
+    	
+    </form>
   </body>
 </html>

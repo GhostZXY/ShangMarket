@@ -19,7 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	
 	<script type="text/javascript" src="js/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript">
@@ -36,10 +35,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					success : function(result){
 						if(result=="success"){
 							var hasstore =$.cookie("HASSTORE")
-							if(hasstore=="true"){
-							window.location.href="seller/home.action"
+							if(hasstore == "true"){
+								window.location.href="seller/home.action"
 							}else{
-							window.location.href="seller/toAddStore.action"
+								window.location.href="seller/toAddStore.action"
 							}
 						}else{
 							$(".tip").html("登录失败")
@@ -49,15 +48,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			})
 		})
 	</script>
-	
-	
-	
 
   </head>
   
   <body>
-   		
-   			<input type="text"  name="u_username"  id="u_username" /><br>
+  			<input type="text"  name="u_username"  id="u_username" /><br>
    			<input type="password"  name="u_password"  id="u_password" /><br>
    			<input type="button" id="login_btn" value="登录" /><br>
    			<span class="tip"></span>

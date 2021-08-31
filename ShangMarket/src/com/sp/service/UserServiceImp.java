@@ -1,18 +1,28 @@
+
 package com.sp.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sp.bean.Address;
 import com.sp.bean.User;
+import com.sp.dao.AddressDao;
 import com.sp.dao.UserDao;
+
 @Service(value="UserService")
 public class UserServiceImp implements UserService{
 	@Resource
 	UserDao userDao;
-
+	
 	@Override
 	public List<User> findAllUser() {
 		// TODO Auto-generated method stub
@@ -42,7 +52,6 @@ public class UserServiceImp implements UserService{
 	}
 	
 	//ajax技术u是后台的
-	@Override
 	public boolean login(User user) {
 		User us= userDao.queryByUsername(user.getU_username());
 		if(us != null){
@@ -54,11 +63,47 @@ public class UserServiceImp implements UserService{
 		return false;
 	}
 	@Override
-	public User findUserByusername(String username) {
+	public User findUserByUserName(String user) {
 		// TODO Auto-generated method stub
-		return userDao.queryByUsername(username);
+		return userDao.queryByUsername(user);
 	}
-	
+	//修改信息
+	@Override
+	public boolean modifyUserInfo(User user) {
+		// TODO Auto-generated method stub
+		return userDao.updateUser(user)!=0;
+	}
+	//修改信息并且修改头像
+	@Override
+	public boolean modifyUserInfoWithHead(User user, MultipartFile head) {
+		if(modifyUserInfo(user)){
+			Date date= new Date();
+			//,lastIndexOf(".")
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			String sux = head.getOriginalFilename().substring(head.getOriginalFilename().lastIndexOf("."));
+			String new_name= sdf.format(date)+UUID.randomUUID()+sux;
+			File file=new File("D:\\pic\\head\\"+new_name);
+			try {
+				head.transferTo(file);
+				user.setU_head_old("/pic/head/"+new_name);
+				return userDao.updateUserWithPic(user)!=0;
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return false;
+		
+	}
+	@Override
+	public void updateHasStore(int id) {
+		userDao.updateHasStore(id);
+		
+	}
 	
 	
 	

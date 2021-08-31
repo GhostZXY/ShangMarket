@@ -15,4 +15,11 @@ public interface UserDao {
 	public int addUser(User user);
 	//校验是否重名
 	public User queryByUsername(@Param("u_username")String u_username);
+	//修改
+	public int updateUser(User user);
+	//如果长传图片的 修改
+	public int updateUserWithPic(User user);
+	//修改用户状态
+	public int updateHasStore(@Param("id")int id);
+	
 }

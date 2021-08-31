@@ -6,13 +6,20 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.MultipartFilter;
 
+import com.sp.bean.Address;
 import com.sp.bean.Products;
 import com.sp.bean.User;
+import com.sp.service.AddressService;
 import com.sp.service.ProductsService;
 import com.sp.service.UserService;
 
@@ -24,6 +31,9 @@ public class BuyerController {
 	
 	@Resource(name="UserService")
 	UserService userService;
+	
+	@Resource(name="AddressSercice")
+	AddressService addressService;
 	
 	//查询所有
 	@RequestMapping("/buyerhome")
@@ -63,27 +73,56 @@ public class BuyerController {
 		return "buyerLogin";
 	}
 	
+	//ajax技术  注解@ResponseBody 代表当前方法返回的是值 字符
 	@ResponseBody
 	@RequestMapping("/login")
-	public String login(User user,HttpServletResponse response){
-		if (userService.login(user)) {
-			Cookie cookie = new Cookie("LOGINNAME",user.getU_username());
-			response.addCookie(cookie);
+	public String login(User user,HttpServletResponse respon){
+		if(userService.login(user)){
+			Cookie cookie =new Cookie("LOGINNAME",user.getU_username());
+			respon.addCookie(cookie);
 			return "success";
 		}
-		//ajax技术  注解@ResponseBody 代表当前方法返回的是值 字符
-		else{
 		return "failed";
-		}
 	}
 	
 	@RequestMapping("/toModify")
 	public String toModify(Model model,String loginName){
-		model.addAttribute("userInfo",userService.findUserByusername(loginName));
+		model.addAttribute("userInfo",userService.findUserByUserName(loginName));
 		return "buyerModify";
 	}
 	
-	
+	//跳转到商品列表页
+	@RequestMapping("/productList")
+	public String toproductList(){
+		
+		
+		return "productList";
+	}
+	//跳转到用户信息修改页
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
+	public String modify(String u_username,String u_password,String u_nickname, 
+			@RequestParam("u_head")MultipartFile u_head){
+		User user=new User();
+		user.setU_username(u_username);
+		user.setU_password(u_password);
+		user.setU_nickname(u_nickname);
+		
+		if(u_head.getOriginalFilename().equals("")){
+			//只改信息
+			userService.modifyUserInfo(user);
+		}else{
+			//。该信息和图片
+			userService.modifyUserInfoWithHead(user, u_head);
+		}
+		return "redirect:/products/buyerhome.action";
+	}
+	@RequestMapping("/tosite")
+	public String site(Model model,String username){
+		User user=userService.findUserByUserName(username);
+		List<Address> addlist= addressService.findAlladdress(user.getU_id());
+		model.addAttribute("addressList",addlist);
+		return "size";
+	}
 	
 	
 	

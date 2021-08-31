@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'AddStore.jsp' starting page</title>
+    <title>My JSP 'addStore.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,6 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-   AddStore page. <br>
+    This is my JSP page. 增加商家<br>
+    <form action="seller/addStores.action" method="post">
+    	商店名：<input type="text" name="s_name" id="s_name" /><br>
+    	地址：<input type="text"  name="s_address" id="s_address"/><br>
+    	电话：<input type="text" name="s_tel" id="s_tel" /><br>
+    	<input type="submit" value="注册">
+    </form>
   </body>
 </html>
